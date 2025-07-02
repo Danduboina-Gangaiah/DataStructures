@@ -1,0 +1,35 @@
+Link:https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/
+
+
+class Solution
+{
+    public long maximumSubarraySum(int[] nums, int k)
+    {
+        long sum=0;
+        long max=0;
+        HashMap<Integer,Integer> tm=new HashMap<>();
+        boolean bool=true;
+        for(int i=0;i<k;i++)
+        {
+           
+            sum+=nums[i];
+            tm.put(nums[i],tm.getOrDefault(nums[i],0)+1);
+        }
+       if(tm.size()==k)
+       max=sum;
+        for(int i=k;i<nums.length;i++)
+        {
+            int out=nums[i-k];
+            tm.put(out,tm.getOrDefault(out,0)-1);
+            if(tm.get(out)==0)
+            tm.remove(out);
+            sum-=out;
+            int in=nums[i];
+            tm.put(in,tm.getOrDefault(in,0)+1);
+            sum+=in;
+            if(tm.size()==k)
+            max=Math.max(max,sum);
+        }
+        return max;
+    }
+}
