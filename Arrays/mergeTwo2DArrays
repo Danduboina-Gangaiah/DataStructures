@@ -1,0 +1,75 @@
+Link:https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/description/
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    int nums1[][]={{2,4},{3,6},{5,5}};
+	    int nums2[][]={{1,3},{4,3}};
+		 ArrayList<int []> temp=new ArrayList<>();
+        int i=0;
+        int j=0;
+        while(i<nums1.length && j<nums2.length)
+        {
+            if(nums1[i][0]<nums2[j][0])
+            {
+                int arr[]=new int[2];
+                arr[0]=nums1[i][0];
+                arr[1]=nums1[i][1];
+                temp.add(arr);
+                i++;
+            }
+            else if(nums1[i][0]==nums2[j][0])
+            {
+                int arr[]=new int[2];
+                arr[0]=nums1[i][0];
+                arr[1]=nums1[i][1]+nums2[j][1];
+                temp.add(arr);
+                i++;
+                j++;
+            }
+            else
+            {
+                int arr[]=new int[2];
+                arr[0]=nums2[j][0];
+                arr[1]=nums2[j][1];
+                j++;
+                temp.add(arr);
+            }
+        }
+        while(i<nums1.length)
+        {
+            int arr[]=new int[2];
+            arr[0]=nums1[i][0];
+            arr[1]=nums1[i][1];
+            temp.add(arr);
+            i++;
+        }
+         while(j<nums2.length)
+        {
+            int arr[]=new int[2];
+            arr[0]=nums2[j][0];
+            arr[1]=nums2[j][1];
+            temp.add(arr);
+            j++;
+        }
+        // for(int k=0;k<temp.size();k++)
+        // {
+        //     System.out.println(Arrays.toString(temp.get(k)));
+        // }
+        int answer[][]= new int[temp.size()][2];
+        for(int z=0;z<answer.length;z++)
+        {
+            int ind[]=temp.get(z);
+            answer[z]=ind;
+        }
+        for(int z=0;z<answer.length;z++)
+        {
+            System.out.println(Arrays.toString(answer[z]));
+        }
+	}
+}
