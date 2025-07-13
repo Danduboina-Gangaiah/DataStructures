@@ -74,3 +74,44 @@ class Solution {
         return ans;
     }
 }
+----------------------------------------
+class Solution {
+    static List<Integer> firstNegInt(int arr[], int k)
+    {
+        Queue<Integer> que=new ArrayDeque<Integer>();
+        for(int i=0;i<k;i++)
+        {
+            if(arr[i]<0)
+            {
+                que.offer(i);
+            }
+        }
+        ArrayList<Integer> ans=new ArrayList<>();
+        if(que.isEmpty())
+        {
+            ans.add(0);
+        }
+        else
+        {
+            ans.add(arr[que.peek()]);
+        }
+        for(int i=k;i<arr.length;i++)
+        {
+            if(!que.isEmpty() && que.peek()<=i-k)
+            {
+                que.poll();
+            }
+            if(arr[i]<0)
+            {
+                que.offer(i);
+            }
+            if(que.isEmpty())
+            {
+                ans.add(0);
+                continue;
+            }
+            ans.add(arr[que.peek()]);
+        }
+        return ans;
+    }
+}
