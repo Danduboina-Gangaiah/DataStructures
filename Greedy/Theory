@@ -1,0 +1,2 @@
+GREEDY ALGORITHM:
+                Any algorithm which choose locally optimal choice at each step and making these local choices makes global optimal choice is Greedy Algorithm
