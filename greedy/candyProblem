@@ -1,0 +1,103 @@
+Problem Statement: Maximize Sweetness with Given Budget
+You are given n sweets, where each sweet has:
+
+A cost[i] — the price of the sweet in rupees.
+
+A sweetness[i] — a number representing how sweet it is.
+
+You also have a fixed amount of money, X rupees (e.g., X = 100).
+
+You can buy any number of sweets, and multiple units of the same sweet (unlimited supply), as long as the total cost does not exceed X.
+
+Your goal is to maximize the total sweetness you get with your available budget.
+
+🔢 Input
+An integer n = number of sweet types (e.g., 6).
+
+A list of n integers cost[] — the cost of each sweet.
+
+A list of n integers sweetness[] — the sweetness value of each sweet.
+
+An integer X — your total money (e.g., X = 100).
+
+✅ Output
+Print the list of sweets you buy, how much money you spend on each, and the total sweetness obtained.
+
+💡 Constraints
+1 ≤ n ≤ 10⁴
+
+1 ≤ cost[i], sweetness[i] ≤ 10⁴
+
+1 ≤ X ≤ 10⁵
+------------------------------------------------------------------------
+You can purchase multiple units of the same sweet.
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        int n = 6;
+        int[] cost = new int[n];
+        int[] sweetness = new int[n];
+
+        System.out.println("Enter costs (space separated):");
+        String[] costInput = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) {
+            cost[i] = Integer.parseInt(costInput[i]);
+        }
+
+        System.out.println("Enter sweetness values (space separated):");
+        String[] sweetInput = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) {
+            sweetness[i] = Integer.parseInt(sweetInput[i]);
+        }
+
+        Gana[] gana = new Gana[n];
+        for (int i = 0; i < n; i++) {
+            gana[i] = new Gana(cost[i], sweetness[i]);
+        }
+
+        // Sort by sweetness per rupee (spr) in descending order
+        Arrays.sort(gana, (a, b) -> {
+            if (b.spr > a.spr) return 1;
+            else if (b.spr < a.spr) return -1;
+            else return 0;
+        });
+
+        System.out.println("\nSorted items by sweetness per rupee:");
+        for (int i = 0; i < n; i++) {
+            System.out.println("Cost: " + gana[i].cost + ", Sweetness: " + gana[i].sweetness + ", SPR: " + gana[i].spr);
+        }
+
+        int amount = 100;
+        int totalSweetness = 0;
+
+        System.out.println("\nBuying items with Rs.100:");
+
+        for (int i = 0; i < n; i++) {
+            while (amount >= gana[i].cost) {
+                System.out.println("I bought at " + gana[i].cost + " by sweetness " + gana[i].sweetness);
+                amount -= gana[i].cost;
+                totalSweetness += gana[i].sweetness;
+            }
+        }
+
+        System.out.println("\nRemaining amount: " + amount);
+        System.out.println("Total sweetness gained: " + totalSweetness);
+    }
+}
+
+class Gana {
+    int cost;
+    int sweetness;
+    float spr;
+
+    public Gana(int cost, int sweetness) {
+        this.cost = cost;
+        this.sweetness = sweetness;
+        this.spr = (float) sweetness / cost;
+    }
+}
