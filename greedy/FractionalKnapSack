@@ -1,0 +1,33 @@
+LINK:https://www.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1
+------------------------------------------------------------------------
+class Solution
+{
+    double fractionalKnapsack(int[] values, int[] weights, int W)
+    {
+        ArrayList<double[]> al=new ArrayList<>();
+        for(int i=0;i<values.length;i++)
+        {
+            al.add(new double[]{values[i],weights[i],(double)values[i]/weights[i]});
+        }
+        Collections.sort(al,new Comparator<double[]>()
+        {
+           public int compare(double a[],double b[])
+           {
+               return Double.compare(b[2],a[2]);
+           }
+        });
+        double ans=0;
+        int curCap=0;
+        for(double[] i:al)
+        {
+            if(curCap+i[1]>W)
+            {
+                ans+=(double)i[0]/i[1]*(W-curCap);
+                break;
+            }
+            ans+=(double)i[0];
+            curCap+=i[1];
+        }
+        return ans;
+    }
+}
