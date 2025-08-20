@@ -1,0 +1,50 @@
+Link : https://www.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
+
+class Solution {
+
+    public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit)
+    {
+        int maxDeadLine=-1;
+        for(int i=0;i<deadline.length;i++)
+        {
+            maxDeadLine=Math.max(maxDeadLine,deadline[i]);
+        }
+        ArrayList<int[]> al=new ArrayList<>();
+        for(int i=0;i<deadline.length;i++)
+        {
+            al.add(new int[]{deadline[i],profit[i]});
+        }
+        Collections.sort(al,new Comparator<int []>()
+        {
+            @Override
+            public int compare(int[] a,int[] b)
+            {
+                return Integer.compare(b[1],a[1]);
+            }
+        });
+        TreeSet<Integer> ts=new TreeSet<>();
+        for(int i=1;i<=maxDeadLine;i++)
+        {
+            ts.add(i);
+        }
+        int sumMoney=0;
+        int count=0;
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=0;i<al.size();i++)
+        {
+            if(ts.floor(al.get(i)[0])==null)
+            {
+                continue;
+            }
+            else
+            {
+                sumMoney+=al.get(i)[1];
+                count++;
+                ts.remove(ts.floor(al.get(i)[0]));
+            }
+        }
+        ans.add(count);
+        ans.add(sumMoney);
+        return ans;
+    }
+}
