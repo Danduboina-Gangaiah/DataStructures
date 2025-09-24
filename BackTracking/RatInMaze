@@ -1,0 +1,50 @@
+QUESTION : https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+class Solution
+{
+    ArrayList<String> al=new ArrayList<>();
+    public void ratInMazeHelper(int i,int j,int [][]visited,int [][]maze,int n,StringBuilder str)
+    {
+        if(i==-1|| j==-1 || j==n || i==n|| visited[i][j]==1 || maze[i][j]==0)
+        {
+            return;
+        }
+        if(i==n-1&& j==n-1)
+        {
+            String St=str.toString();
+            al.add(St);
+            return;
+        }
+        
+        visited[i][j]=1;
+        
+        str.append("U");
+        ratInMazeHelper(i-1,j,visited,maze,n,str);
+        str.deleteCharAt(str.length()-1);
+        
+        //now let's move to the down 
+        
+        str.append("D");
+        ratInMazeHelper(i+1,j,visited,maze,n,str);
+        str.deleteCharAt(str.length()-1);
+        
+        
+        //let's move to the left
+        str.append("L");
+        ratInMazeHelper(i,j-1,visited,maze,n,str);
+        str.deleteCharAt(str.length()-1);
+        
+        //let's move to the right
+         str.append("R");
+        ratInMazeHelper(i,j+1,visited,maze,n,str);
+        str.deleteCharAt(str.length()-1);
+        
+        visited[i][j]=0;
+    }
+    public ArrayList<String> ratInMaze(int[][] maze)
+    {
+        int visited[][]=new int[maze.length][maze.length];
+        ratInMazeHelper(0,0,visited,maze,maze.length,new StringBuilder());
+        Collections.sort(al);
+        return al;
+    }
+}
