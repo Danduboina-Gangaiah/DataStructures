@@ -1,0 +1,19 @@
+class Solution {
+    public static ArrayList<Integer> findUnion(int[] a, int[] b) {
+        HashSet<Integer> answer=new HashSet<>();
+        for(int i=0;i<a.length;i++)
+        {
+            answer.add(a[i]);
+        }
+        for(int i=0;i<b.length;i++)
+        {
+            answer.add(b[i]);
+        }
+        ArrayList<Integer> ans=new ArrayList<>(answer);
+        return ans;
+        
+    }
+}
+
+--------------------------
+https://www.geeksforgeeks.org/problems/union-of-two-arrays3538/1
