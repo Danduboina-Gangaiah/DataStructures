@@ -1,0 +1,22 @@
+// User function Template for Java
+
+class Solution {
+    public static int kthSmallest(int[] arr, int k) {
+        TreeSet<Integer> ts=new TreeSet<>();
+        for(int i=0;i<arr.length;i++)
+        {
+            ts.add(arr[i]);
+        }
+        
+//		System.out.println(ts);
+		Iterator<Integer> it=ts.iterator();
+		int count = 0;
+int ele = -1;
+	while(it.hasNext()) {
+    ele = it.next();
+    count++;
+    if(count == k) return ele;
+}
+		return ele;
+    }
+}
